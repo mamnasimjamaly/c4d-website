@@ -11,6 +11,30 @@ body {
   width: 60%;
 }
 
-#map {
-	height: 100%;
+#map_container{
+  position: relative;
+}
+
+
+#map{
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 22.25%;
+    padding-top: 30px;
+    position: relative;
+    display: block;
+}
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ }
+
+.col-eq-height{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+
+#equalheight{
+    overflow: hidden; 
 }

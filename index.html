@@ -2,7 +2,9 @@
 <head>
 	<title>C4D-Canada</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top" id = "my-navbar" ng-controller = "navCtrl as nav">
@@ -14,7 +16,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-			<a href="" class = "navbar-brand">
+			<a href="" class = "navbar-brand" ng-click = "nav.activateSection('home')">
 				<img src="img/C4D-logo.jpg">
 			</a>
 			</div> <!-- navbar-header -->
@@ -32,8 +34,51 @@
 
 	<div ng-controller = "homeCtrl as home" ng-show = "home.webMetrics.homeActive">
 		<div class="container container-fluid">
-			<h1>HOME</h1>
+			<div class="panel panel-success text-center">
+  				<div class="panel-heading">
+					<strong>About Clothing4Dawah</strong>  				
+  				</div>
+  				<div class="panel-body">
+    				<p>We collect unwanted new and used clothing to financially support Dawah, education and alleviating poverty and helping the less-fortunate Muslims in community.</p>
+    				<a href="#" class = "btn btn-info btn-lg" ng-click = "home.webMetrics.changeState('howItWorks',true)">How it works</a>
+  				</div>
+			</div>
+
+			<div class="jumbotron">
+      			<div class="container text-center">
+        			<p>We all have clothes that we don't wear any more in our wardrobes.What if you could use these clothes to benefit your community?</p>
+        			<a class = "btn btn-info btn-lg" href="#" data-toggle = "modal" data-target = "#request-a-pickup-1">request-a-pickup</a>
+      			</div>
+    		</div>
 		</div>
+		<div class="modal text-center" id = "request-a-pickup-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Request a pickup. We will call you ASAP to arrange a pickup!</h2>
+                    </div>
+                    <div class="modal-body">
+	        			<form>
+	 						<div class="form-group">
+						    	<label>Name</label>
+						    	<input type="text" class="form-control" ng-model = "home.webMetrics.pickupFormData.name" id="name" placeholder="Your Name">
+						  	</div>
+						  	<div class="form-group">
+						    	<label>Phone Number</label>
+						    	<input type="text" class="form-control" id="phone" placeholder="Your Phone" ng-model = "home.webMetrics.pickupFormData.phone">
+						  	</div>
+						  	<div class="form-group">
+						    	<label>Your Message</label>
+						    	<input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "home.webMetrics.pickupFormData.message">
+						 	</div>
+						  	<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+                    	<button class = "btn btn-danger pull-right btn-lg" data-dismiss = "modal">Close</button>
+                    </div>
+                	
+                </div>                
+            </div>
+        </div> <!-- end modal -->
 	</div>
 
 	<div ng-controller = "howItWorksCtrl as how" ng-show = "how.webMetrics.howItWorksActive">
@@ -48,35 +93,168 @@
 
 	<div ng-controller = "donateCtrl as donate" ng-show = "donate.webMetrics.donateActive">
 		<div class="container text-center">
-			<h1>DONATE</h1>
+			<h1>Two Ways to Spread Love!</h1>
+			<div class="row">
+			<div id="equalheight">
+				<div class="col-md-6">
+					<div class="panel panel-info text-center col-eq-height">
+  						<div class="panel-heading">
+							<h2>Donate Clothes</h2>  				
+  						</div>
+  						<div class="panel-body">
+  							<h3>You can Donate your gently used clothes!</h3>
+ 							<div class="row">
+  								<img src="img/donate-clothes.png" class = "img thumbnail img-responsive center-block">
+  							</div>
+  							<div class="row">
+  								<div class="col-sm-5">
+  									<a class = "btn btn-info btn-lg" data-toggle = "modal" data-target = "#request-a-pickup">request-a-pickup</a>
+  								</div>
+  								<div class = "hidden-lg hidden-md hidden-sm"><br></div>
+  								<div class="col-sm-5">
+  									<a class = "btn btn-info  btn-lg" href="#" ng-click = "donate.webMetrics.changeState('locations',true)">drop-off-locations</a>
+  								</div>	
+  							</div>
+  						</div>
+					</div>
+					
+				</div>
+				<div class="hidden-lg hidden-md">Nasim</div>
+				<div class="col-md-6">
+					
+					<div class="panel panel-success text-center col-eq-height">
+  						<div class="panel-heading">
+							<h2>Donate-Doe</h2>  				
+  						</div>
+  						<div class="panel-body">
+  							<p>Link to pay-pal here.</p>
+  							<a href="" class = "btn btn-success btn-lg">Donate using PayPal</a>
+  						</div>
+					</div>
+				</div>
+			</div>
+			</div>
 		</div>
+		<!-- modal for reques-a-pikup -->
+		<div class="modal text-center" id = "request-a-pickup">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Request a pickup. We will call you ASAP to arrange a pickup!</h2>
+                    </div>
+                    <div class="modal-body">
+	        			<form>
+	 						<div class="form-group">
+						    	<label>Name</label>
+						    	<input type="text" class="form-control" ng-model = "donate.webMetrics.pickupFormData.name" id="name" placeholder="Your Name">
+						  	</div>
+						  	<div class="form-group">
+						    	<label>Phone Number</label>
+						    	<input type="text" class="form-control" id="phone" placeholder="Your Phone" ng-model = "donate.webMetrics.pickupFormData.phone">
+						  	</div>
+						  	<div class="form-group">
+						    	<label>Your Message</label>
+						    	<input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "donate.webMetrics.pickupFormData.message">
+						 	</div>
+						  	<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+                    	<button class = "btn btn-danger pull-right btn-lg" data-dismiss = "modal">Close</button>
+                    </div>
+                	
+                </div>                
+            </div>
+        </div> <!-- end modal -->
 	</div>
 
 	<div ng-controller = "locationsCtrl as locations" ng-show = "locations.webMetrics.locationsActive">
-		<div class="container">
-			<h1>Locations</h1>
+		<div class="container" ng-init = "locations.getMap()">
+			<h1>Drop Off Locations</h1>
+			<h3>You can drop-off your gently used clothes in these locations</h3>
 			<div class="row">
-				<div class="col-md-4">List of Locations</div>
-				<div class="col-md-8" id = "map"></div>
+    			<div class="col-md-12">
+    				<div id="map_container"></div>
+	  				<div id="map"></div>
+	  			</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-3 col-xs-0"></div>
+				<div class="col-sm-6">
+					<ul class="list-group">
+  						<li class="list-group-item" ng-repeat = "area in locations.areas">
+    						<span class="tag tag-default tag-pill pull-right">{{area.pointerChar}}</span>
+   	 							{{area.place}}
+  						</li>
+					</ul>
+				</div>
+				<div class="col-sm-3 col-xs-0"></div>
 			</div>
 		</div>
 	</div>
 
 	<div ng-controller = "contactCtrl as contact" ng-show = "contact.webMetrics.contactActive">
 		<div class="container">
-			<h1>Contact</h1>
+			
+
+				<div class="panel panel-success">
+	  				<div class="panel-heading">
+						<strong>Contact Us</strong>  				
+	  				</div>
+	  				<div class="panel-body">
+	    				<div class="row">
+	    					<div class="col-sm-4">
+	    						<h2>C4D Address</h2>
+	    						The Honorable Kathleen S. Holden<br>
+								Department of State<br>
+								7100 Athens Place<br>
+								Washington, DC 20521-7100<br>
+								Tel: 111-111-1111
+	    					</div>
+	    					<div class="col-sm-8">
+			    				<form>
+			    					<h2>Send us a message!</h2>
+								  <div class="form-group">
+								    <label>Name</label>
+								    <input type="text" class="form-control" ng-model = "contact.webMetrics.contactFormData.name" id="name" placeholder="Your Name">
+								  </div>
+								  <div class="form-group">
+								    <label>Email address</label>
+								    <input type="email" class="form-control" id="email" placeholder="Your Email" ng-model = "contact.webMetrics.contactFormData.email">
+								  </div>
+								  <div class="form-group">
+								    <label>Your Message</label>
+								    <input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "contact.webMetrics.contactFormData.message">
+								  </div>
+								  <button type="submit" class="btn btn-default">Submit</button>
+								</form>
+							</div>	
+						</div>
+	  				</div>
+				</div>
+			
 		</div>
 	</div>
+	<footer class="footer text-center">
+		<a class="btn btn-social-icon btn-lg btn-facebook"><i class="fa fa-facebook fa-3x"></i></a>
+        <a class="btn btn-social-icon btn-lg btn-twitter"><i class="fa fa-twitter fa-3x"></i></a>
+        <a class="btn btn-social-icon btn-lg btn-youtube"><i class="fa fa-youtube fa-3x"></i></a>
+	</footer>
 	
-	<script src = "js/google-map.js"></script>	
 	<!-- third party js  -->
 	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 	<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7A3MxHWRd60TrsFudPfHBCdf0YbbLtuM&callback=initMap"
-    async defer></script>
-
-	<!-- internal js --> 
+	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function () {
+  			$(".navbar-nav li a").click(function(event) {
+    		$(".navbar-collapse").collapse('hide');
+  			});
+		});
+	</script>
+  
+	<!-- internal js --> 	
 	<script src = "js/app.js"></script>
 	<script src = "js/controllers/home.js"></script>
 	<script src = "js/controllers/howItWorks.js"></script>

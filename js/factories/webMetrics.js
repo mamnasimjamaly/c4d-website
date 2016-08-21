@@ -10,6 +10,8 @@
 				donateActive		: false,
 				locationsActive 	: false,
 				contactActive		: false,
+				contactFormData		: contactFormData,
+				pickupFormData		: pickupFormData,
 				changeState			: changeState,
 				reset				: reset
 				
@@ -17,6 +19,7 @@
 			return WebsiteObj;
 
 			function changeState(metric, state) {
+				reset();
 				if(metric == "home") {
 					WebsiteObj.homeActive = state;
 				} else if (metric === "howItWorks") {
@@ -39,6 +42,17 @@
 				WebsiteObj.donateActive = false;
 				WebsiteObj.locationsActive = false;
 				WebsiteObj.contactActive = false;
+			}
+
+			var contactFormData = {
+				name 	: "",
+				email	: "",
+				message : ""
+			};
+			var pickupFormData = {
+				name 	: "",
+				phone	: "",
+				message : ""
+			};
 		}
-	}
 })();			
