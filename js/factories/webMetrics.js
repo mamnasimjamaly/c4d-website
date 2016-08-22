@@ -12,14 +12,14 @@
 				donateActive		: false,
 				locationsActive 	: false,	
 				contactActive		: false,
-				errorPickupFrom		: false,
-				errorOrderForm		: false,
-				pickupReqSuccess	: false,
+				formShowMessage		: false,
+				formMessage			: "",
 				dataService 		: DataService,
 				changeState			: changeState,
 				reset				: reset,
-				clearPickupForm		: clearPickupForm,
-				processPickupReq	: processPickupReq
+				clearForm			: clearForm,
+				processSubmitReq	: processSubmitReq,
+				goBackHome			: goBackHome
 				
 			};
 			return WebsiteObj;
@@ -48,36 +48,67 @@
 				WebsiteObj.donateActive = false;
 				WebsiteObj.locationsActive = false;
 				WebsiteObj.contactActive = false;
+				WebsiteObj.formShowMessage = false;
+				WebsiteObj.formMessage = "";
 			}
 
-			function clearPickupForm() {
-				for(data in WebsiteObj.dataService.pickupFormData) {
-					WebsiteObj.dataService.pickupFormData[data] = "";
+			function clearForm(form) {
+				for(data in form) {
+					form[data] = "";
 				}
-				WebsiteObj.errorPickupFrom = false;
-				WebsiteObj.pickupReqSuccess = false;
+				WebsiteObj.formShowMessage = false;
+				WebsiteObj.formShowMessage = "";
+
 			}
 
-			function processPickupReq() {
+			function processSubmitReq(formData) {
 				trimedData = {};
 
-				for (data in WebsiteObj.dataService.pickupFormData) {
-					trimedData[data] = $.trim(WebsiteObj.dataService.pickupFormData[data]);
+				for (data in formData) {
+					trimedData[data] = $.trim(formData[data]);
 				}
 
 				for (data in trimedData) {
 					if(trimedData[data] === "") {
-						WebsiteObj.errorPickupFrom = true;
+						WebsiteObj.formShowMessage = true;
+						WebsiteObj.formMessage = "Please fill up all fields";
 						return;
 					}
 				}
 
-				WebsiteObj.pickupReqSuccess = true;
-				WebsiteObj.errorPickupFrom = false; 
-				//TODO : else send email
-			}
+				var promise = sendEmail(trimedData);
+				var response = "1" ;
+				promise.then(function(v) {
+  					response = v[0]; 
 
+				});
+				if( response == "1") {
+					WebsiteObj.formShowMessage = true;
+					WebsiteObj.formMessage = "Message Sent";
+				} else if (response == "0"){
+					WebsiteObj.formShowMessage = true;
+					WebsiteObj.formMessage = "Message Not Sent";
+				} else {
+					WebsiteObj.formShowMessage = true;
+					WebsiteObj.formMessage = "Something went wrong";
+				}
 
-			
 		}
+
+		function sendEmail(formData) {
+				
+ 			return Promise.resolve($.ajax({
+      			type 	: "POST",
+      			url		: "php/mail.php",
+      			data 	: formData
+  			}));
+		}
+
+		function goBackHome() {
+			WebsiteObj.reset();
+			WebsiteObj.homeActive = true;
+			WebsiteObj.clearForm(WebsiteObj.dataService.contactFormData);
+		}
+			
+	}
 })();			

@@ -36,7 +36,7 @@
 		<div class="container container-fluid">
 			<div class="panel panel-success text-center">
   				<div class="panel-heading">
-					<strong>About Clothing4Dawah</strong>  				
+					<h1>About Clothing4Dawah</h1>  				
   				</div>
   				<div class="panel-body">
     				<p>We collect unwanted new and used clothing to financially support Dawah, education and alleviating poverty and helping the less-fortunate Muslims in community.</p>
@@ -47,7 +47,7 @@
 			<div class="jumbotron">
       			<div class="container text-center">
         			<p>We all have clothes that we don't wear any more in our wardrobes.What if you could use these clothes to benefit your community?</p>
-        			<a class = "btn btn-info btn-lg" data-toggle = "modal" data-target = "#request-a-pickup-1" ng-click = "home.webMetrics.clearPickupForm()">request-a-pickup</a>
+        			<a class = "btn btn-info btn-lg" data-toggle = "modal" data-target = "#request-a-pickup-1" ng-click = "home.webMetrics.clearForm(home.dataService.pickupFormData)">request-a-pickup</a>
       			</div>
     		</div>
 		</div>
@@ -58,10 +58,7 @@
                         <h2>Request a pickup. We will call you ASAP to arrange a pickup!</h2>
                     </div>
                     <div class="modal-body">
-	        			<h3 class="bg-danger" ng-show = "home.webMetrics.errorPickupFrom">
-	        				Please fillup all fields!
-	        			</h3>
-	        			<form ng-hide = "home.webMetrics.pickupReqSuccess">
+	        			<form ng-hide = "home.webMetrics.formMessage == 'Message Sent'";>
 	 						<div class="form-group">
 						    	<label>Name</label>
 						    	<input type="text" class="form-control" ng-model = "home.dataService.pickupFormData.name" id="name" placeholder="Your Name">
@@ -74,13 +71,14 @@
 						    	<label>Your Message</label>
 						    	<input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "home.dataService.pickupFormData.message">
 						 	</div>
-						 	<button class="btn btn-danger" ng-click = "home.webMetrics.clearPickupForm()">Clear Form</button>
-						  	<button type="submit" class="btn btn-default" ng-click = "home.webMetrics.processPickupReq()">Submit</button>
+						 	<button class="btn btn-danger" ng-click = "home.webMetrics.clearForm(home.dataService.pickupFormData)">Clear Form</button>
+						  	<button type="submit" ng-click = "home.webMetrics.processSubmitReq(home.dataService.pickupFormData)" class="btn btn-default">Submit</button>
 						</form>
-						<h1 class="bg-success" ng-show = "home.webMetrics.pickupReqSuccess">Request Sent Successfully. We will contact you ASAP.</h1>
+						<h1 class="bg-success" ng-show = "home.webMetrics.formShowMessage">
+							{{home.webMetrics.formMessage}}
+						</h1>
                     	<button class = "btn btn-danger pull-right btn-lg" data-dismiss = "modal">Close</button>
                     </div>
-                	
                 </div>                
             </div>
         </div> <!-- end modal -->
@@ -115,7 +113,7 @@
   							</div>
   							<div class="row">
   								<div class="col-sm-5">
-  									<a class = "btn btn-info btn-lg" data-toggle = "modal" data-target = "#request-a-pickup" ng-click = "donate.webMetrics.clearPickupForm()">request-a-pickup</a>
+  									<a class = "btn btn-info btn-lg" data-toggle = "modal" data-target = "#request-a-pickup" ng-click = "donate.webMetrics.clearForm(donate.dataService.pickupFormData)">request-a-pickup</a>
   								</div>
   								<div class = "hidden-lg hidden-md hidden-sm"><br></div>
   								<div class="col-sm-5">
@@ -126,7 +124,6 @@
 					</div>
 					
 				</div>
-				<div class="hidden-lg hidden-md">Nasim</div>
 				<div class="col-md-6">
 					
 					<div class="panel panel-success text-center col-eq-height">
@@ -151,10 +148,7 @@
                         <h2>Request a pickup. We will call you ASAP to arrange a pickup!</h2>
                     </div>
                     <div class="modal-body">
-	        			<h3 class="bg-danger" ng-show = "donate.webMetrics.errorPickupFrom">
-	        				Please fillup all fields!
-	        			</h3>
-	        			<form ng-hide = "donate.webMetrics.pickupReqSuccess">
+	        			<form ng-hide = "donate.webMetrics.formMessage == 'Message Sent'";>
 	 						<div class="form-group">
 						    	<label>Name</label>
 						    	<input type="text" class="form-control" ng-model = "donate.dataService.pickupFormData.name" id="name" placeholder="Your Name">
@@ -167,10 +161,12 @@
 						    	<label>Your Message</label>
 						    	<input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "donate.dataService.pickupFormData.message">
 						 	</div>
-						 	<button class="btn btn-danger" ng-click = "donate.webMetrics.clearPickupForm()">Clear Form</button>
-						  	<button type="submit" ng-click = "donate.webMetrics.processPickupReq()" class="btn btn-default">Submit</button>
+						 	<button class="btn btn-danger" ng-click = "donate.webMetrics.clearForm(donate.dataService.pickupFormData)">Clear Form</button>
+						  	<button type="submit" ng-click = "donate.webMetrics.processSubmitReq(donate.dataService.pickupFormData)" class="btn btn-default">Submit</button>
 						</form>
-						<h1 class="bg-success" ng-show = "donate.webMetrics.pickupReqSuccess">Request Sent Successfully. We will contact you ASAP.</h1>
+						<h1 class="bg-danger" ng-show = "donate.webMetrics.formShowMessage">
+							{{donate.webMetrics.formMessage}}
+						</h1>
                     	<button class = "btn btn-danger pull-right btn-lg" data-dismiss = "modal">Close</button>
                     </div>
                 </div>                
@@ -210,7 +206,7 @@
 
 				<div class="panel panel-success">
 	  				<div class="panel-heading">
-						<strong>Contact Us</strong>  				
+						<h1>Contact Us</h1>  				
 	  				</div>
 	  				<div class="panel-body">
 	    				<div class="row">
@@ -223,22 +219,30 @@
 								Tel: 111-111-1111
 	    					</div>
 	    					<div class="col-sm-8">
-			    				<form>
+	    						<div class="row text-center" ng-show = "contact.webMetrics.formShowMessage">
+									<h3 class = "text-danger">{{contact.webMetrics.formMessage}}</h3>
+								</div>
+								<div class="row text-center" ng-show = "contact.webMetrics.formMessage == 'Message Sent'">	
+									<button class = "btn btn-info" ng-click = "contact.webMetrics.goBackHome()">Go Back Home</button>
+								</div>
+			    				<form ng-hide = "contact.webMetrics.formMessage == 'Message Sent'">
 			    					<h2>Send us a message!</h2>
 								  <div class="form-group">
 								    <label>Name</label>
-								    <input type="text" class="form-control" ng-model = "contact.webMetrics.contactFormData.name" id="name" placeholder="Your Name">
+								    <input type="text" class="form-control" ng-model = "contact.dataService.contactFormData.name" placeholder="Your Name">
 								  </div>
 								  <div class="form-group">
 								    <label>Email address</label>
-								    <input type="email" class="form-control" id="email" placeholder="Your Email" ng-model = "contact.webMetrics.contactFormData.email">
+								    <input type="text" class="form-control" placeholder="Your Email" ng-model = "contact.dataService.contactFormData.email">
 								  </div>
 								  <div class="form-group">
 								    <label>Your Message</label>
-								    <input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "contact.webMetrics.contactFormData.message">
+								    <input type="text" class="form-control" placeholder="Your Message" ng-model = "contact.dataService.contactFormData.message">
 								  </div>
-								  <button type="submit" class="btn btn-default">Submit</button>
+								  <button class="btn btn-danger" ng-click = "contact.webMetrics.clearForm(contact.dataService.contactFormData)">Clear Form</button>
+						  	      <button type="submit" ng-click = "contact.webMetrics.processSubmitReq(contact.dataService.contactFormData)" class="btn btn-default">Submit</button>
 								</form>
+								
 							</div>	
 						</div>
 	  				</div>
