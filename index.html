@@ -47,7 +47,7 @@
 			<div class="jumbotron">
       			<div class="container text-center">
         			<p>We all have clothes that we don't wear any more in our wardrobes.What if you could use these clothes to benefit your community?</p>
-        			<a class = "btn btn-info btn-lg" href="#" data-toggle = "modal" data-target = "#request-a-pickup-1">request-a-pickup</a>
+        			<a class = "btn btn-info btn-lg" data-toggle = "modal" data-target = "#request-a-pickup-1" ng-click = "home.webMetrics.clearPickupForm()">request-a-pickup</a>
       			</div>
     		</div>
 		</div>
@@ -58,21 +58,26 @@
                         <h2>Request a pickup. We will call you ASAP to arrange a pickup!</h2>
                     </div>
                     <div class="modal-body">
-	        			<form>
+	        			<h3 class="bg-danger" ng-show = "home.webMetrics.errorPickupFrom">
+	        				Please fillup all fields!
+	        			</h3>
+	        			<form ng-hide = "home.webMetrics.pickupReqSuccess">
 	 						<div class="form-group">
 						    	<label>Name</label>
-						    	<input type="text" class="form-control" ng-model = "home.webMetrics.pickupFormData.name" id="name" placeholder="Your Name">
+						    	<input type="text" class="form-control" ng-model = "home.dataService.pickupFormData.name" id="name" placeholder="Your Name">
 						  	</div>
 						  	<div class="form-group">
 						    	<label>Phone Number</label>
-						    	<input type="text" class="form-control" id="phone" placeholder="Your Phone" ng-model = "home.webMetrics.pickupFormData.phone">
+						    	<input type="text" class="form-control" id="phone" placeholder="Your Phone" ng-model = "home.dataService.pickupFormData.phone">
 						  	</div>
 						  	<div class="form-group">
 						    	<label>Your Message</label>
-						    	<input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "home.webMetrics.pickupFormData.message">
+						    	<input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "home.dataService.pickupFormData.message">
 						 	</div>
-						  	<button type="submit" class="btn btn-default">Submit</button>
+						 	<button class="btn btn-danger" ng-click = "home.webMetrics.clearPickupForm()">Clear Form</button>
+						  	<button type="submit" class="btn btn-default" ng-click = "home.webMetrics.processPickupReq()">Submit</button>
 						</form>
+						<h1 class="bg-success" ng-show = "home.webMetrics.pickupReqSuccess">Request Sent Successfully. We will contact you ASAP.</h1>
                     	<button class = "btn btn-danger pull-right btn-lg" data-dismiss = "modal">Close</button>
                     </div>
                 	
@@ -93,11 +98,13 @@
 
 	<div ng-controller = "donateCtrl as donate" ng-show = "donate.webMetrics.donateActive">
 		<div class="container text-center">
+			<div class="panel panel-default text-center">
 			<h1>Two Ways to Spread Love!</h1>
+			
 			<div class="row">
 			<div id="equalheight">
 				<div class="col-md-6">
-					<div class="panel panel-info text-center col-eq-height">
+					<div class="panel panel-info col-eq-height">
   						<div class="panel-heading">
 							<h2>Donate Clothes</h2>  				
   						</div>
@@ -108,7 +115,7 @@
   							</div>
   							<div class="row">
   								<div class="col-sm-5">
-  									<a class = "btn btn-info btn-lg" data-toggle = "modal" data-target = "#request-a-pickup">request-a-pickup</a>
+  									<a class = "btn btn-info btn-lg" data-toggle = "modal" data-target = "#request-a-pickup" ng-click = "donate.webMetrics.clearPickupForm()">request-a-pickup</a>
   								</div>
   								<div class = "hidden-lg hidden-md hidden-sm"><br></div>
   								<div class="col-sm-5">
@@ -135,6 +142,7 @@
 			</div>
 			</div>
 		</div>
+		</div>
 		<!-- modal for reques-a-pikup -->
 		<div class="modal text-center" id = "request-a-pickup">
             <div class="modal-dialog">
@@ -143,24 +151,28 @@
                         <h2>Request a pickup. We will call you ASAP to arrange a pickup!</h2>
                     </div>
                     <div class="modal-body">
-	        			<form>
+	        			<h3 class="bg-danger" ng-show = "donate.webMetrics.errorPickupFrom">
+	        				Please fillup all fields!
+	        			</h3>
+	        			<form ng-hide = "donate.webMetrics.pickupReqSuccess">
 	 						<div class="form-group">
 						    	<label>Name</label>
-						    	<input type="text" class="form-control" ng-model = "donate.webMetrics.pickupFormData.name" id="name" placeholder="Your Name">
+						    	<input type="text" class="form-control" ng-model = "donate.dataService.pickupFormData.name" id="name" placeholder="Your Name">
 						  	</div>
 						  	<div class="form-group">
 						    	<label>Phone Number</label>
-						    	<input type="text" class="form-control" id="phone" placeholder="Your Phone" ng-model = "donate.webMetrics.pickupFormData.phone">
+						    	<input type="text" class="form-control" id="phone" placeholder="Your Phone" ng-model = "donate.dataService.pickupFormData.phone">
 						  	</div>
 						  	<div class="form-group">
 						    	<label>Your Message</label>
-						    	<input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "donate.webMetrics.pickupFormData.message">
+						    	<input type="text" class="form-control" id="msg" placeholder="Your Message" ng-model = "donate.dataService.pickupFormData.message">
 						 	</div>
-						  	<button type="submit" class="btn btn-default">Submit</button>
+						 	<button class="btn btn-danger" ng-click = "donate.webMetrics.clearPickupForm()">Clear Form</button>
+						  	<button type="submit" ng-click = "donate.webMetrics.processPickupReq()" class="btn btn-default">Submit</button>
 						</form>
+						<h1 class="bg-success" ng-show = "donate.webMetrics.pickupReqSuccess">Request Sent Successfully. We will contact you ASAP.</h1>
                     	<button class = "btn btn-danger pull-right btn-lg" data-dismiss = "modal">Close</button>
                     </div>
-                	
                 </div>                
             </div>
         </div> <!-- end modal -->
@@ -181,7 +193,7 @@
 				<div class="col-sm-3 col-xs-0"></div>
 				<div class="col-sm-6">
 					<ul class="list-group">
-  						<li class="list-group-item" ng-repeat = "area in locations.areas">
+  						<li class="list-group-item" ng-repeat = "area in locations.dataService.areas">
     						<span class="tag tag-default tag-pill pull-right">{{area.pointerChar}}</span>
    	 							{{area.place}}
   						</li>
@@ -263,6 +275,7 @@
 	<script src = "js/controllers/contact.js"></script>
 	<script src = "js/controllers/nav.js"></script>
 	<script src = "js/factories/webMetrics.js"></script>
+	<script src = "js/factories/dataService.js"></script>
 	
 </body>
 </html>

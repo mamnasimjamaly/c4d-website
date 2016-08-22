@@ -3,17 +3,23 @@
 		.module("c4dWebsite")
 		.factory("webMetrics" , WebMetrics);
 
-		function WebMetrics() {
+	WebMetrics.$inject = ['DataService'];
+
+		function WebMetrics(DataService) {
 			var WebsiteObj = {
 				homeActive			: true,
 				howItWorksActive	: false,
 				donateActive		: false,
-				locationsActive 	: false,
+				locationsActive 	: false,	
 				contactActive		: false,
-				contactFormData		: contactFormData,
-				pickupFormData		: pickupFormData,
+				errorPickupFrom		: false,
+				errorOrderForm		: false,
+				pickupReqSuccess	: false,
+				dataService 		: DataService,
 				changeState			: changeState,
-				reset				: reset
+				reset				: reset,
+				clearPickupForm		: clearPickupForm,
+				processPickupReq	: processPickupReq
 				
 			};
 			return WebsiteObj;
@@ -44,15 +50,34 @@
 				WebsiteObj.contactActive = false;
 			}
 
-			var contactFormData = {
-				name 	: "",
-				email	: "",
-				message : ""
-			};
-			var pickupFormData = {
-				name 	: "",
-				phone	: "",
-				message : ""
-			};
+			function clearPickupForm() {
+				for(data in WebsiteObj.dataService.pickupFormData) {
+					WebsiteObj.dataService.pickupFormData[data] = "";
+				}
+				WebsiteObj.errorPickupFrom = false;
+				WebsiteObj.pickupReqSuccess = false;
+			}
+
+			function processPickupReq() {
+				trimedData = {};
+
+				for (data in WebsiteObj.dataService.pickupFormData) {
+					trimedData[data] = $.trim(WebsiteObj.dataService.pickupFormData[data]);
+				}
+
+				for (data in trimedData) {
+					if(trimedData[data] === "") {
+						WebsiteObj.errorPickupFrom = true;
+						return;
+					}
+				}
+
+				WebsiteObj.pickupReqSuccess = true;
+				WebsiteObj.errorPickupFrom = false; 
+				//TODO : else send email
+			}
+
+
+			
 		}
 })();			

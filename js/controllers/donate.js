@@ -3,10 +3,11 @@
 		.module('c4dWebsite')
 		.controller('donateCtrl', DonateController);
 
-		DonateController.$inject = ['webMetrics'];
+		DonateController.$inject = ['webMetrics', 'DataService'];
 
-	function DonateController(webMetrics) {
+	function DonateController(webMetrics , DataService) {
 		var vm = this;
 		vm.webMetrics = webMetrics;
+		vm.dataService = DataService;
 	};
 })();

@@ -3,13 +3,13 @@
 	.module('c4dWebsite')
 	.controller('locationsCtrl', LocationsController);
 
-	LocationsController.$inject = ['webMetrics'];
+	LocationsController.$inject = ['webMetrics', 'DataService'];
 
-	function LocationsController(webMetrics) {
+	function LocationsController(webMetrics , DataService) {
 		var vm = this;
 		vm.webMetrics = webMetrics;
 		vm.getMap = getMap;
-		vm.areas = areas;  
+		vm.dataService = DataService;  
 
 		function getMap() {
 			function initialize() {
@@ -39,9 +39,9 @@
               	
               	//now add all markers
               	var currChar = "A";
-              	for (i = 0; i < areas.length; i++){
-                  createMarker(areas[i],currChar);
-                  areas[i]["pointerChar"] = currChar;
+              	for (i = 0; i < vm.dataService.areas.length; i++){
+                  createMarker(vm.dataService.areas[i],currChar);
+                  vm.dataService.areas[i]["pointerChar"] = currChar;
                   currChar = nextChar(currChar);
               	}
 
@@ -65,36 +65,4 @@
 		}				
 	};
 
-	var areas = [
-              {
-                  place : 'Vancouver',
-                  desc : 'A country of culture and tradition!',
-                  lat : 49.2827291,
-                  long : -123.12073
-              },
-              {
-                  place : 'Marpole',
-                  desc : 'Marpole Area',
-                  lat : 49.20677999999999,
-                  long : -123.13838950000002
-              },
-              {
-                  place : 'Kerrisdale',
-                  desc : 'Kerrisdale',
-                  lat : 49.2341326,
-                  long : -123.15535090000003
-              },
-              {
-                  place : 'Richmond',
-                  desc : 'Richmond',
-                  lat : 49.16658979999999,
-                  long : -123.13356899999997
-                },
-              {
-                  place : 'Kitsilano',
-                  desc : 'Kitsilano',
-                  lat : 49.250937,
-                  long : -123.16214200000002
-              }
-          ];
 })();
