@@ -76,12 +76,10 @@
 					}
 				}
 
-				var promise = sendEmail(trimedData);
-				var response = "1" ;
-				promise.then(function(v) {
-  					response = v[0]; 
+				var response = sendEmail(trimedData);
 
-				});
+				console.log(response);
+
 				if( response == "1") {
 					WebsiteObj.formShowMessage = true;
 					WebsiteObj.formMessage = "Message Sent";
@@ -95,13 +93,17 @@
 
 		}
 
-		function sendEmail(formData) {
-				
- 			return Promise.resolve($.ajax({
-      			type 	: "POST",
-      			url		: "php/mail.php",
-      			data 	: formData
-  			}));
+		function sendEmail(formData){
+    		var to_return = "";
+    		$.ajax({  
+		    	type: 'POST',
+		    	url: 'php/mail.php', 
+		    	data: formData,
+		    	success: function(response) {
+		               to_return = response;
+            }
+    		});    
+    		return to_return;
 		}
 
 		function goBackHome() {

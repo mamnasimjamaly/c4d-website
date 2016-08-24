@@ -27,7 +27,7 @@ $mail->isSMTP();                                      // Set mailer to use SMTP
 $mail->Host = 'smtp.mail.yahoo.com';  // Specify main and backup SMTP servers
 $mail->SMTPAuth = true;                               // Enable SMTP authentication
 $mail->Username = 'mamnasimjamaly@yahoo.com';                 // SMTP username
-$mail->Password = 'xxxxxxxx';                           // SMTP password
+$mail->Password = '36mithun@85';                           // SMTP password
 //$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 25;                                    // TCP port to connect to
 
